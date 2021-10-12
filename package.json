@@ -1,0 +1,24 @@
+{
+  "name": "react-table-component",
+  "version": "1.0.0",
+  "description": "React Table Component is a general table component which can handle all the major possiblities with minimal amount of code.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "react-table-component"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yojak-Tech/react-table-component.git"
+  },
+  "keywords": [
+    "react-table-component",
+    "general-table-component",
+    "master-table-component"
+  ],
+  "author": "Anand Jee Choubey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yojak-Tech/react-table-component/issues"
+  },
+  "homepage": "https://github.com/Yojak-Tech/react-table-component#readme"
+}
