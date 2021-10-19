@@ -115,14 +115,3 @@
         <td>-</td>
     </tr>
 </table>
-
-## Want to contribute?
-
-- Search [issues](https://github.com/Yojak-Tech/react-table-component/issues), if the bug/feature is already listed.
-
-- If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/Yojak-Tech/react-table-component/issues/new). Be sure to include a title and clear description, as much relevant information as possible, and a code sample or an executable test case demonstrating the expected behavior that is not occurring.
-
-- Fork the repository
-
-- Open a pull request and mention the issue in the comments as -> fix #{issue_number}
-  eg. fix #27

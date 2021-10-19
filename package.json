@@ -1,11 +1,26 @@
 {
-	"name": "testing-yojak-table-component-bizcon",
-	"version": "1.0.6",
+	"name": "@yojak/react-table-component",
+	"version": "1.0.0",
 	"description": "This is a general table component developed by Yojak Tech",
 	"main": "./lib/cjs/index.js",
 	"module": "./lib/esm/index.js",
 	"types": "./lib/esm/index.d.ts",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Yojak-Tech/react-table-component.git"
+	},
+	"keywords": [
+		"table-component",
+		"general-table",
+		"react",
+		"react-table-component"
+	],
+	"author": "Yojak-tech <tech@yojak.in>",
+	"bugs": {
+		"url": "https://github.com/Yojak-Tech/react-table-component/issues"
+	},
+	"homepage": "https://github.com/Yojak-Tech/react-table-component#readme",
 	"scripts": {
 		"build": "yarn build:esm && yarn build:cjs",
 		"build:esm": "tsc",
@@ -15,8 +30,7 @@
 	"dependencies": {
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"semantic-ui-react": "^2.0.4",
-		"typescript-plugin-css-modules": "^3.4.0"
+		"semantic-ui-react": "^2.0.4"
 	},
 	"peerDependencies": {
 		"react": "^17.0.2",
@@ -29,8 +43,7 @@
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
 		"semantic-ui-react": "^2.0.4",
-		"typescript": "^4.0.2",
-		"typescript-plugin-css-modules": "^3.4.0"
+		"typescript": "^4.0.2"
 	},
 	"files": [
 		"/lib",
