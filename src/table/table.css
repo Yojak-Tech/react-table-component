@@ -1,0 +1,9 @@
+.table-container {
+  overflow-x: auto;
+}
+.table-container td {
+  min-width: 150px;
+}
+.pagination-container {
+  margin-top: 20px;
+}

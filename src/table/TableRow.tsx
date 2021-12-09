@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox, Table, Icon } from "semantic-ui-react";
+
 import { TableComponent } from "./Table";
 
 type TableRowProps = {
+	index: any;
 	row: any;
 	col: any;
 	allChecked?: boolean;
@@ -14,10 +16,13 @@ type TableRowProps = {
 	collapsable?: boolean;
 	subCol?: any;
 	subRowKey?: string;
+	handleRowClick?: any;
+   
 };
 
 type ColType = {
 	key: any;
+	keys?: Array<any>;
 	label: any;
 	type: any;
 	formatter: any;
@@ -25,9 +30,11 @@ type ColType = {
 	align: any;
 	text: any;
 	image: any;
+	showSerialNumber?: any 
 };
 
 const TableRow = ({
+	index,
 	row,
 	col,
 	allChecked = false,
@@ -39,6 +46,7 @@ const TableRow = ({
 	collapsable = false,
 	subCol = [],
 	subRowKey = "",
+	handleRowClick = null
 }: TableRowProps): JSX.Element => {
 	const [check, setCheck] = useState(false);
 	const [rowUrl, setRowUrl] = useState(url);
@@ -85,15 +93,20 @@ const TableRow = ({
 
 	return row ? (
 		<React.Fragment>
-			<Table.Row key={row.id} className="table_row">
+		
+			<Table.Row key={row.id} className="table_row" onClick={handleRowClick && (()=>handleRowClick(row.id))}>
+				
 				{checkBoxes ? (
 					<Table.Cell>
 						<Checkbox checked={check} onChange={handleCheck} />
 					</Table.Cell>
 				) : null}
+
+				
 				{col.map(
 					({
 						key,
+						keys,
 						label,
 						type,
 						formatter,
@@ -101,16 +114,33 @@ const TableRow = ({
 						align,
 						text,
 						image,
+						showSerialNumber
 					}: ColType) => {
 						let result = row;
+						const resultObj = {};
 						let target = "";
 
-						if (key.length) {
+						if (key?.length) {
 							const keys = key.split(".");
-							keys.forEach((keyMain: string) => {
-								result = result[keyMain] ? result[keyMain] : "-";
+							keys.forEach((keyMain) => {
+								
+								if(showSerialNumber){
+								 result = keyMain in result ? result[keyMain] : index+1;
+							  }
+								else if (typeof result[keyMain]==="boolean" || result[keyMain]===0){
+								 result=result[keyMain].toString()
+								}
+								else {
+									result = keyMain in result ? result[keyMain] : '-'
+								}
 							});
 						}
+
+						if (keys) {
+							keys.forEach((key) => {
+							  resultObj[key] = result[key] ? result[key] : '';
+							});
+						  }
 
 						if (type === "link" || type === "action") {
 							target = result;

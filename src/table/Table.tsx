@@ -3,6 +3,9 @@ import { Checkbox, Pagination, Table } from "semantic-ui-react";
 
 import RenderTableRow from "./TableRow";
 import { Loader } from "../utils";
+import createIndex from "../helpers/createIndex";
+import './table.css';
+
 
 type TableProps = {
 	columns: Array<any>;
@@ -21,7 +24,9 @@ type TableProps = {
 	collapsable?: boolean;
 	subCol?: any;
 	subRowKey?: string;
+	handleRowClick?: any;
 };
+
 
 export const TableComponent = ({
 	columns,
@@ -34,13 +39,16 @@ export const TableComponent = ({
 	allChecked = false,
 	pagination = false,
 	totalPages,
-	currentPage,
+	currentPage = 1,
 	setCurrentPage,
 	url = "",
 	collapsable = false,
 	subCol = [],
 	subRowKey = "",
+	handleRowClick = null
 }: TableProps): JSX.Element => {
+	
+	
 	const allCheckHandler = () => {
 		if (!allChecked) {
 			setArrayOfChecked([]);
@@ -53,8 +61,14 @@ export const TableComponent = ({
 		setAllChecked(!allChecked);
 	};
 
+	const onPageChange = (event: any, { activePage }: any) => {
+		setCurrentPage(activePage);
+		console.log(event)
+	}
+
+	
 	return (
-		<>
+		<div className="table-container">
 			<Table className="negotiation-table" celled>
 				<Table.Header>
 					<Table.Row>
@@ -62,12 +76,16 @@ export const TableComponent = ({
 							<Table.HeaderCell>
 								<Checkbox
 									checked={allChecked}
-									onChange={() => allCheckHandler()}
+									onChange={allCheckHandler}
 								/>
 							</Table.HeaderCell>
 						) : null}
+					
 						{columns.map((column) => (
-							<Table.HeaderCell key={column.key} colSpan={column.colSpan || 1}>
+						
+							<Table.HeaderCell key={column.key}
+							 colSpan={column.colSpan || 1}>
+								
 								{column.label}
 							</Table.HeaderCell>
 						))}
@@ -78,8 +96,12 @@ export const TableComponent = ({
 						<>
 							{rows && rows.length > 0 ? (
 								<>
-									{rows.map((row) => (
+									{rows.map((row,index) =>
+									
+
+									(
 										<RenderTableRow
+										    index={createIndex({currentPage, rows, index})}
 											row={row}
 											col={columns}
 											checkBoxes={checkBoxes}
@@ -91,7 +113,8 @@ export const TableComponent = ({
 											collapsable={collapsable}
 											subCol={subCol}
 											subRowKey={subRowKey}
-										/>
+											handleRowClick={handleRowClick}
+										/>	
 									))}
 								</>
 							) : (
@@ -105,10 +128,11 @@ export const TableComponent = ({
 					)}
 				</Table.Body>
 			</Table>
+	
 			{pagination && totalPages ? (
-				<div style={{ marginTop: 20 }}>
+				<div className="pagination-container">
 					<Pagination
-						onPageChange={({ activePage }: any) => setCurrentPage(activePage)}
+						onPageChange={onPageChange}
 						lastItem={null}
 						firstItem={null}
 						activePage={currentPage}
@@ -116,6 +140,7 @@ export const TableComponent = ({
 					/>
 				</div>
 			) : null}
-		</>
+		
+		</div>
 	);
 };
