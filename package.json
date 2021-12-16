@@ -1,6 +1,6 @@
 {
 	"name": "@yojak/react-table-component",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "This is a general table component developed by Yojak Tech",
 	"main": "./lib/cjs/index.js",
 	"module": "./lib/esm/index.js",
