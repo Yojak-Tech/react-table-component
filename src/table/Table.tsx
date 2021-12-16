@@ -4,7 +4,6 @@ import { Checkbox, Pagination, Table } from "semantic-ui-react";
 import RenderTableRow from "./TableRow";
 import { Loader } from "../utils";
 import createIndex from "../helpers/createIndex";
-import "./table.css";
 
 type TableProps = {
   columns: Array<any>;
@@ -63,8 +62,13 @@ export const TableComponent = ({
   };
 
   return (
-    <div className="table-container">
-      <div className="negotiation-table">
+    <div
+      style={{
+        width: "95vw",
+        margin: "0 auto",
+      }}
+    >
+      <div style={{ overflowX: "auto", maxWidth: "95vw" }}>
         <Table celled>
           <Table.Header>
             <Table.Row>
@@ -121,7 +125,7 @@ export const TableComponent = ({
       </div>
 
       {pagination && totalPages ? (
-        <div className="pagination-container">
+        <div style={{ marginTop: "20px" }}>
           <Pagination
             onPageChange={onPageChange}
             lastItem={null}

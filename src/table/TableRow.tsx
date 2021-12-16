@@ -98,7 +98,7 @@ const TableRow = ({
         onClick={handleRowClick && (() => handleRowClick(row.id))}
       >
         {checkBoxes ? (
-          <Table.Cell>
+          <Table.Cell style={{ minWidth: "150px" }}>
             <Checkbox checked={check} onChange={handleCheck} />
           </Table.Cell>
         ) : null}
@@ -160,6 +160,7 @@ const TableRow = ({
 
             return (
               <Table.Cell
+                style={{ minWidth: "150px" }}
                 onClick={() => {
                   if (rowUrl.length && type !== "link") {
                     window.open(rowUrl, "_blank");
@@ -193,7 +194,11 @@ const TableRow = ({
         <Table.Row>
           <Table.Cell
             colSpan={checkBoxes ? col.length + 2 : col.length + 1}
-            style={{ background: "rgba(229,229,229,0.5)", padding: 20 }}
+            style={{
+              background: "rgba(229,229,229,0.5)",
+              padding: 20,
+              minWidth: "150px",
+            }}
           >
             <TableComponent rows={subRows} columns={subCol} />
           </Table.Cell>
