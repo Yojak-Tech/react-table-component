@@ -65,7 +65,7 @@ export const TableComponent = ({
     console.log(event);
   };
 
-  const stylesObject = {
+  const stylesObject: any = {
     ...(overFlowX !== "" && { overflowX: overFlowX }),
     ...(overFlowY !== "" && { overflowY: overFlowY }),
   };
