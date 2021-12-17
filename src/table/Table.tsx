@@ -23,6 +23,8 @@ type TableProps = {
   subCol?: any;
   subRowKey?: string;
   handleRowClick?: any;
+  overFlowX?: string;
+  overFlowY?: string;
 };
 
 export const TableComponent = ({
@@ -43,6 +45,8 @@ export const TableComponent = ({
   subCol = [],
   subRowKey = "",
   handleRowClick = null,
+  overFlowX = "",
+  overFlowY = "",
 }: TableProps): JSX.Element => {
   const allCheckHandler = () => {
     if (!allChecked) {
@@ -61,14 +65,19 @@ export const TableComponent = ({
     console.log(event);
   };
 
+  const stylesObject = {
+    ...(overFlowX !== "" && { overflowX: overFlowX }),
+    ...(overFlowY !== "" && { overflowY: overFlowY }),
+  };
+
   return (
     <div
       style={{
-        width: "95vw",
+        width: "100%",
         margin: "0 auto",
       }}
     >
-      <div style={{ overflowX: "auto", maxWidth: "95vw" }}>
+      <div style={stylesObject}>
         <Table celled>
           <Table.Header>
             <Table.Row>
