@@ -1,5 +1,8 @@
-import React from "react";
-import { Checkbox, Pagination, Table } from "semantic-ui-react";
+import React, { useState } from "react";
+// import { Checkbox, Pagination } from "semantic-ui-react";
+import "./table.css";
+
+import { Table, Checkbox, Switch, Space } from "antd";
 
 import RenderTableRow from "./TableRow";
 import { Loader } from "../utils";
@@ -65,10 +68,62 @@ export const TableComponent = ({
     console.log(event);
   };
 
-  const stylesObject = {
-    ...(overFlowX !== "" && { overflowX: overFlowX }),
-    ...(overFlowY !== "" && { overflowY: overFlowY }),
-  };
+  
+  let antColumns = [];
+
+  columns.forEach((column) => {
+    antColumns.push({ title: column.title, dataIndex: column.key});
+
+  });
+
+  let dataSources = [
+    {
+      render: () => {
+        <>
+        {<RenderTableRow/>} 
+        </>
+        
+      }
+
+    }
+  ]
+
+
+  
+
+  
+  // const colmns = [
+  //   {
+  //     title: () => {
+  //       columns.forEach((column) => {
+  //         console.log(column.title, "hii");
+  //         return <h1> {column.title}</h1>;
+  //       });
+  //     },
+
+  //     render: () =>
+  //       checkBoxes ? (
+  //         <Checkbox disabled={!allChecked} onChange={allCheckHandler} />
+  //       ) : null,
+  //   },
+  // ];
+
+  // const stylesObject = {
+  //   overFlowX: overFlowX,
+  //   overFlowY: overFlowY,
+  //   // ...(overFlowX !== "" && { overflowX: overFlowX }),
+  //   // ...(overFlowY !== "" && { overflowY: overFlowY }),
+  // };
+
+  let stylesObject = {};
+  if (overFlowX) {
+    stylesObject["overFlowX"] = overFlowX;
+  }
+  if (overFlowY) {
+    stylesObject["overFlowY"] = overFlowY;
+  }
+
+
 
   return (
     <div
@@ -78,7 +133,16 @@ export const TableComponent = ({
       }}
     >
       <div style={stylesObject}>
-        <Table celled>
+
+      
+        <Table 
+           columns={antColumns}
+           rowSelection={true}
+           dataSource = {rows}
+           pagination={{ position: ['bottomRight'] }}
+        />
+
+        {/* <Table celled>
           <Table.Header>
             <Table.Row>
               {checkBoxes ? (
@@ -97,6 +161,8 @@ export const TableComponent = ({
               ))}
             </Table.Row>
           </Table.Header>
+          
+
           <Table.Body>
             {!rowsloading ? (
               <>
@@ -130,10 +196,10 @@ export const TableComponent = ({
               <Loader />
             )}
           </Table.Body>
-        </Table>
+        </Table> */}
       </div>
 
-      {pagination && totalPages ? (
+      {/* {pagination && totalPages ? (
         <div style={{ marginTop: "20px" }}>
           <Pagination
             onPageChange={onPageChange}
@@ -143,7 +209,7 @@ export const TableComponent = ({
             totalPages={totalPages}
           />
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };

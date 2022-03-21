@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Table, Icon } from "semantic-ui-react";
-
 import { TableComponent } from "./Table";
+
+// import { Checkbox, Table, Icon } from "semantic-ui-react";
+import { Collapse, Table } from 'antd';
+const { Panel } = Collapse;
+
+
 
 type TableRowProps = {
   index: any;
@@ -90,9 +94,88 @@ const TableRow = ({
     }
   }, []);
 
-  return row ? (
-    <React.Fragment>
-      <Table.Row
+  // const dataSources = [
+  //   {
+  //     key: row.id,
+  //     className: "table_row",
+  //     render: () => {
+  //       onclick={handleRowClick && (() => handleRowClick(row.id))},
+  //     }
+  //   }
+  // ]
+
+  function NestedTable() {
+    const expandedRowRender = () => {
+    const data =[
+      {
+        render: ()=> {
+          return <TableComponent rows={subRows}  />
+        }
+      }
+    ]
+
+    const columns = [
+      {
+        render: ()=> {
+          return <TableComponent columns={subCol} />
+        }
+      }
+    ]
+    
+    return <Table
+    dataSource={data}
+    columns= {columns}
+    pagination={false}
+    renderCell={()=> {
+      return {
+        // colSpan={rowSelection ? col.length + 2 : col.length + 1},
+            style:{  background: "rgba(229,229,229,0.5)",
+            padding: 20,
+            minWidth: "150px",}
+      }
+    }}
+    
+    />
+  }
+  
+  
+     return (
+        row ? (
+      <React.Fragment>
+      <Table
+      expandable={{ expandedRowRender }}
+      onRow={() => {
+        return {
+          key: row.id,
+          className: "table_row",
+          onClick: ()=>{handleRowClick && (() => handleRowClick(row.id))}
+        }
+      }
+      }
+      onCell = {()=> {
+        return {
+          style:{ minWidth: "150px" },
+          onClick:() => {
+                      if (rowUrl.length && type !== "link") {
+                        window.open(rowUrl, "_blank");
+                      }
+                      if (type === "link" && target.length) {
+                        window.open(target, "_blank");
+                      }
+                      if (type === "action" && action) {
+                        action(target);
+                      }
+                      
+                    },
+                    // textAlign={align || "left"}
+        }
+
+         }} />
+
+   
+        
+      
+      {/* <Table.Row
         key={row.id}
         className="table_row"
         onClick={handleRowClick && (() => handleRowClick(row.id))}
@@ -158,7 +241,9 @@ const TableRow = ({
               return "-";
             };
 
+
             return (
+
               <Table.Cell
                 style={{ minWidth: "150px" }}
                 onClick={() => {
@@ -189,8 +274,8 @@ const TableRow = ({
             );
           }
         )}
-      </Table.Row>
-      {collapsable && isOpen ? (
+       </Table.Row> */}
+      {/* {collapsable && isOpen ? (
         <Table.Row>
           <Table.Cell
             colSpan={checkBoxes ? col.length + 2 : col.length + 1}
@@ -203,11 +288,12 @@ const TableRow = ({
             <TableComponent rows={subRows} columns={subCol} />
           </Table.Cell>
         </Table.Row>
-      ) : null}
+      ) : null} */}
     </React.Fragment>
   ) : (
     <React.Fragment />
-  );
+     ));
+    }  
 };
 
 export default TableRow;
